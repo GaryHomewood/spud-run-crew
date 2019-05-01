@@ -1,0 +1,141 @@
+@import url('https://rsms.me/inter/inter.css');
+html { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  html { font-family: 'Inter var', sans-serif; }
+}
+
+.transition (@time) {
+  -webkit-transition: all @time;
+  -moz-transition: all @time;
+  -ms-transition: all @time;
+  -o-transition: all @time;
+  transition: all @time;
+}
+
+@color-1: #0540F2;
+@color-2: #0554F2;
+@color-3: #3876F2;
+@color-4: #6B98F2;
+@color-5: #F2F2F2;
+
+@bg-color: @color-1;
+@heading-color: @color-5;
+@axis-color: @color-5;
+@line-color: @color-4;
+@focus-color: @color-4;
+@bar-color: @color-4;
+
+body {
+  background-color: @bg-color;
+  border-top: 12px solid @color-2;
+  color: @heading-color;
+  margin: 0;
+  overflow-x: hidden;
+  padding: 0;
+}
+
+main {
+  margin: auto;
+  padding: 0 16px;
+  position: relative;
+  width: 590px;
+}
+
+.hidden {
+  display: none;
+}
+
+header {
+  padding: 0 16px;
+}
+
+h1 {
+  border-bottom: 1px solid @heading-color;
+  margin: 40px auto;
+  padding-bottom: 16px;
+  width: 590px;
+}
+
+h1, h2 {
+  font-weight: 300;
+}
+
+.loading {
+  margin-top: 200px;
+}
+
+.loading p {
+  text-align: center;
+  position: relative;
+  left: 6px;
+}
+
+.loader {
+  animation: spin 1s linear infinite;
+  border-bottom: 5px solid @color-3;
+  border-left: 5px solid @color-3;
+  border-radius: 50%;
+  border-right: 5px solid @color-3;
+  border-top: 5px solid @color-5;
+  height: 45px;
+  margin: auto;
+  width: 45px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.axis {
+  color: @axis-color;
+}
+
+.axis-label {
+  color: @axis-color;
+  fill: @axis-color;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.line {
+  fill: none;
+  stroke: @line-color;
+  stroke-width: 2px;
+}
+
+.focus circle {
+  fill: @focus-color;
+  stroke: @focus-color;
+}
+
+.tooltip {
+  .transition(0.25s);
+  background-color: @color-5;
+  border-radius: 3px;
+  color: #2b2b2b;
+  font-size: 12px;
+  padding: 4px 10px;
+  pointer-events: none;
+  position: absolute;
+  width: 130px;
+}
+
+.tooltip div {
+  margin: 3px 0;
+}
+
+.tooltip-date {
+  font-size: 12px;
+  font-weight: bold;
+  padding-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.bar {
+  color: @bar-color;
+  fill: @bar-color;
+}
