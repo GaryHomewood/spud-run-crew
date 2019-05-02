@@ -96,7 +96,7 @@ class AttendanceGraph {
         d1 = data[i],
         d = x0 - d0.runDate > d1.runDate - x0 ? d1 : d0;
         focus.attr('transform', 'translate(' + x(d.runDate) + ',' + y(d.runners) + ')');
-        tooltip.attr('style', 'left:' + (x(d.runDate)) + 'px;top:' + (y(d.runners) + 90) + 'px;');
+        tooltip.attr('style', 'left:' + (x(d.runDate)) + 'px;top:' + (y(d.runners) + 134) + 'px;');
         tooltip.select('.tooltip-date').text(d3.timeFormat('%d %B %Y')(d.runDate));
         tooltip.select('.tooltip-runners').text(d.runnersList);
       });
