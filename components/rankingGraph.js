@@ -76,7 +76,7 @@ class RankingGraph {
         'runner': k,
         'runCount': runAttendance[k]
       };
-    }).sort((a, b) => a.runCount > b.runCount);
+    }).sort((a, b) => a.runCount - b.runCount);
   }
 }
 
