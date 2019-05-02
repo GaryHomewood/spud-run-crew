@@ -1,17 +1,16 @@
 class RankingGraph {
-  constructor(data) {
-    this.data = data
+  constructor(w, h, margin, data) {
+    this.w = w;
+    this.h = h;
+    this.margin = margin;
+    this.data = data;
   }
 
   draw() {
     var rankedRunAttendance = this.aggregateData(this.data)
 
-    var margin = { top: 30, right: 30, bottom: 30, left: 50 },
-    w = 600 - margin.left - margin.right,
-    h = 200 - margin.top - margin.bottom;
-
-    var x = d3.scaleLinear().range([0, w]);
-    var y = d3.scaleBand().range([h, 0]);
+    var x = d3.scaleLinear().range([0, this.w]);
+    var y = d3.scaleBand().range([this.h, 0]);
     
     rankedRunAttendance.forEach((d) => {
       d.runner = d['runner'];
@@ -24,10 +23,10 @@ class RankingGraph {
 
     var svg = d3.select('#ranking')
       .append('svg')
-      .attr('width', w + margin.left + margin.right)
-      .attr('height', h + margin.top + margin.bottom)
+      .attr('width', this.w + this.margin.left + this.margin.right)
+      .attr('height', this.h + this.margin.top + this.margin.bottom)
       .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     var xAxis = d3.axisBottom(x)
       .tickFormat(d3.format('d'))
@@ -35,12 +34,12 @@ class RankingGraph {
       .ticks(d3.max(rankedRunAttendance, function(d) { return d.runCount; }) - 1);
     svg.append('g')
       .attr('class', 'axis')
-      .attr('transform', 'translate(0, ' + h + ')')
+      .attr('transform', 'translate(0, ' + this.h + ')')
       .call(xAxis)
       .append('text')
       .attr('class', 'axis-label')
-      .attr('dx', '480px')
-      .attr('dy', '30px')
+      .attr('dx', this.w/2 + 'px')
+      .attr('dy', '34px')
       .text('NUMBER OF RUNS');
  
     var yAxis = d3.axisLeft(y);
@@ -55,7 +54,7 @@ class RankingGraph {
       .attr('class', 'bar')
       .attr("width", function(d) { return x(d.runCount); })
       .attr("y", function(d) { return y(d.runner); })
-      .attr("height", 16);
+      .attr("height", 15);
   }
 
   aggregateData(data) {

@@ -1,15 +1,14 @@
 class AttendanceGraph {
-  constructor(data) {
-    this.data = data
+  constructor(w, h, margin, data) {
+    this.w = w;
+    this.h = h;
+    this.margin = margin;
+    this.data = data;
   }
 
   draw() {
-    var margin = { top: 30, right: 30, bottom: 30, left: 50 },
-    w = 600 - margin.left - margin.right,
-    h = 200 - margin.top - margin.bottom;
-
-    var x = d3.scaleTime().range([0, w]);
-    var y = d3.scaleLinear().range([h, 0]);
+    var x = d3.scaleTime().range([0, this.w]);
+    var y = d3.scaleLinear().range([this.h, 0]);
     var parseDate = d3.timeParse('%Y-%m-%d');
     var bisectDate = d3.bisector(function(d) { return d.runDate; }).left;
 
@@ -25,10 +24,10 @@ class AttendanceGraph {
 
     var svg = d3.select('#attendance')
       .append('svg')
-      .attr('width', w + margin.left + margin.right)
-      .attr('height', h + margin.top + margin.bottom)
+      .attr('width', this.w + this.margin.left + this.margin.right)
+      .attr('height', this.h + this.margin.top + this.margin.bottom)
       .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     // x axis of run dates (weekly)
     var xAxis = d3.axisBottom(x)
@@ -36,12 +35,12 @@ class AttendanceGraph {
       .tickFormat(d3.timeFormat('%d/%m/%y'));
     svg.append('g')
       .attr('class', 'axis')
-      .attr('transform', 'translate(0, ' + h + ')')
+      .attr('transform', 'translate(0, ' + this.h + ')')
       .call(xAxis)
       .append('text')
       .attr('class', 'axis-label')
-      .attr('dx', '500px')
-      .attr('dy', '28px')
+      .attr('dx', this.w/2 + 'px')
+      .attr('dy', '34px')
       .text('RUN DATE')
       ;
 
@@ -56,6 +55,7 @@ class AttendanceGraph {
       .append('text')
       .attr('class', 'axis-label')
       .attr('transform', 'rotate(-90)')
+      .attr('dx', '2px')
       .attr('dy', '-26px')
       .text('RUNNERS');
 
@@ -85,8 +85,8 @@ class AttendanceGraph {
     const data = this.data
     svg.append('rect')
       .attr('class', 'overlay')
-      .attr('width', w)
-      .attr('height', h)
+      .attr('width', this.w)
+      .attr('height', this.h)
       .on('mouseover', function() { focus.style('display', null); tooltip.style('display', null);  })
       .on('mouseout', function() { focus.style('display', 'none'); tooltip.style('display', 'none'); })
       .on('mousemove', function() {
