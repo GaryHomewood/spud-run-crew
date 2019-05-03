@@ -12,7 +12,7 @@ class Dashboard {
   }
 
   drawGraphs(data) {
-    const dimens = { width: 320, height: 130, top: 30, right: 30, bottom: 40, left: 50 };
+    let dimens = { width: 300, height: 130, top: 30, right: 50, bottom: 40, left: 50 };
 
     const attendanceGraph = new AttendanceGraph(dimens, data);
     attendanceGraph.draw();
