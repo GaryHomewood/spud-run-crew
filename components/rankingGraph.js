@@ -1,9 +1,8 @@
-class RankingGraph {
-  constructor(w, h, margin, data) {
-    this.w = w;
-    this.h = h;
-    this.margin = margin;
-    this.data = data;
+import { Graph } from "./graph";
+
+class RankingGraph extends Graph {
+  constructor(dimens, data) {
+    super(dimens, data);
   }
 
   draw() {

@@ -31,7 +31,7 @@ body {
   color: @heading-color;
   margin: 0;
   overflow-x: hidden;
-  padding: 0;
+  padding: 0 0 100px 0;
 }
 
 .content {
@@ -84,6 +84,11 @@ h1, h2 {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.attendance,
+.pace {
+  position: relative;
 }
 
 .axis {

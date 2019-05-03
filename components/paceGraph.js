@@ -1,6 +1,6 @@
 import { Graph } from "./graph";
 
-class AttendanceGraph extends Graph {
+class PaceGraph extends Graph {
   constructor(dimens, data) {
     super(dimens, data);
   }
@@ -10,18 +10,15 @@ class AttendanceGraph extends Graph {
     var y = d3.scaleLinear().range([this.h, 0]);
     var parseDate = d3.timeParse('%Y-%m-%d');
     var bisectDate = d3.bisector(function(d) { return d.runDate; }).left;
-
     this.data.forEach((d) => {
       d.runDate = parseDate(d['Date']);
-      d.runnersList = d['Runners'];
-      d.runners = d['Runners'].split(', ').length;
+      d.pace = d['Pace'];
     });
-
     // set axis ranges
     x.domain([this.data[0].runDate, this.data[this.data.length - 1].runDate]);
-    y.domain([0, d3.max(this.data, function(d) { return d.runners; })]);
+    y.domain([10, 8]);
 
-    var svg = d3.select('#attendance')
+    var svg = d3.select('#pace')
       .append('svg')
       .attr('width', this.w + this.margin.left + this.margin.right)
       .attr('height', this.h + this.margin.top + this.margin.bottom)
@@ -40,14 +37,11 @@ class AttendanceGraph extends Graph {
       .attr('class', 'axis-label')
       .attr('dx', this.w/2 + 'px')
       .attr('dy', '34px')
-      .text('RUN DATE')
-      ;
+      .text('RUN DATE');
 
-    // y axis with number of runners
+    // y axis with average pace
     var yAxis = d3.axisLeft(y)
-      .tickFormat(d3.format('d'))
-      // force ticks only for integers
-      .ticks(d3.max(this.data, function(d) { return d.runners; }) - 1);
+      .tickFormat(d3.format('.2f'));
     svg.append('g')
       .attr('class', 'axis')
       .call(yAxis)
@@ -55,24 +49,24 @@ class AttendanceGraph extends Graph {
       .attr('class', 'axis-label')
       .attr('transform', 'rotate(-90)')
       .attr('dx', '2px')
-      .attr('dy', '-26px')
-      .text('RUNNERS');
+      .attr('dy', '-36px')
+      .text('PACE');
 
     // graph line
     var line = d3.line()
       .x(function(d) { return x(d.runDate); })
-      .y(function(d) { return y(d.runners); });
+      .y(function(d) { return y(d.pace); });
     svg.append('path')
       .datum(this.data)
       .attr('class', 'line')
       .attr('d', line);
 
     // elements for the focus tooltip
-    var tooltip = d3.select('#attendance').append('div')
+    var tooltip = d3.select('#pace').append('div')
       .attr('class', 'tooltip')
       .style('display', 'none');
     tooltip.append('div').attr('class', 'tooltip-date')
-    tooltip.append('div').attr('class', 'tooltip-runners')
+    tooltip.append('div').attr('class', 'tooltip-content')
 
     // circle for focus on data point
     var focus = svg.append('g')
@@ -94,12 +88,12 @@ class AttendanceGraph extends Graph {
         d0 = data[i - 1],
         d1 = data[i],
         d = x0 - d0.runDate > d1.runDate - x0 ? d1 : d0;
-        focus.attr('transform', 'translate(' + x(d.runDate) + ',' + y(d.runners) + ')');
-        tooltip.attr('style', 'left:' + (x(d.runDate)) + 'px;top:' + (y(d.runners) + 40) + 'px;');
+        focus.attr('transform', 'translate(' + x(d.runDate) + ',' + y(d.pace) + ')');
+        tooltip.attr('style', 'left:' + (x(d.runDate)) + 'px;top:' + (y(d.pace) + 40) + 'px;');
         tooltip.select('.tooltip-date').text(d3.timeFormat('%d %B %Y')(d.runDate));
-        tooltip.select('.tooltip-runners').text(d.runnersList);
+        tooltip.select('.tooltip-content').text('PACE: ' + d.pace + '/mile');
       });
   }
 }
 
-export { AttendanceGraph };
+export { PaceGraph }
