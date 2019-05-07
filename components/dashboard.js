@@ -12,6 +12,8 @@ class Dashboard {
   }
 
   drawGraphs(data) {
+    document.getElementById('count').innerText = data.length;
+    
     let dimens = { width: 300, height: 130, top: 30, right: 50, bottom: 40, left: 50 };
 
     const attendanceGraph = new AttendanceGraph(dimens, data);

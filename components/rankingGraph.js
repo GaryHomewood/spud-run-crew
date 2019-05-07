@@ -39,7 +39,7 @@ class RankingGraph extends Graph {
       .attr('class', 'axis-label')
       .attr('dx', this.w/2 + 'px')
       .attr('dy', '34px')
-      .text('NUMBER OF RUNS');
+      .text('RUN NUMBER');
  
     var yAxis = d3.axisLeft(y);
     svg.append('g')
