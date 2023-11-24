@@ -10,8 +10,11 @@
     "build": "parcel build index.html"
   },
   "devDependencies": {
-    "cssnano": "^4.1.10",
+    "cssnano": "^6.0.1",
     "less": "^3.9.0",
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.8.1"
+  },
+  "dependencies": {
+    "papaparse": "^5.4.1"
   }
 }
